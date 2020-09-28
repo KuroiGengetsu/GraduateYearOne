@@ -1,7 +1,6 @@
 # 导入 正则表达式 re 库, csv 操作库, 系统操作库 os
 import re
 import csv
-import os
 
 # https://paste.ubuntu.com/p/6SKm9gdVQD/
 
