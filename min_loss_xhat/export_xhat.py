@@ -9,9 +9,6 @@ import os
 LOSS_RE = re.compile('loss:(\d[.]\d*)')
 # XHAT_RE 用来匹配 xhat
 XHAT_RE = re.compile('x_hat.*?]]')
-# TXT_RE 用来匹配 数字.txt 文件名
-TXT_RE = re.compile('T\d*.txt')
-
 # 分量 Components
 COMP_RE = re.compile('\d*[.]\d*')
 
@@ -66,5 +63,6 @@ def min_loss_return_xhat(filename):
 
 # 主函数
 if __name__ == '__main__':
+    # 对文件名进行循环
     for i in range(100):
         min_loss_return_xhat('2TE{0}.txt'.format(i))
