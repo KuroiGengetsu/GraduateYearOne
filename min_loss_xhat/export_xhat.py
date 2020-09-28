@@ -66,9 +66,5 @@ def min_loss_return_xhat(filename):
 
 # 主函数
 if __name__ == '__main__':
-    # 找出当前目录的所有文件
-    for filename in os.listdir('./'):
-        # 对以 'T数字.txt' 为名的文件进行处理
-        filename = TXT_RE.match(filename)
-        if filename:
-            min_loss_return_xhat(filename.group())
+    for i in range(100):
+        min_loss_return_xhat('2TE{0}.txt'.format(i))
