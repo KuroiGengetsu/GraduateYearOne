@@ -16,15 +16,15 @@ TXT_RE = re.compile('T\d*.txt')
 COMP_RE = re.compile('\d*[.]\d*')
 
 
-def max_index(losses):
+def min_index(losses):
     """
     :param losses: 传入 losses 列表
     :return: 返回 最大值对应的位置 组成的 列表
     """
-    return [i for i, loss in enumerate(losses) if loss == max(losses)]
+    return [i for i, loss in enumerate(losses) if loss == min(losses)]
 
 
-def max_loss_return_xhat(filename):
+def min_loss_return_xhat(filename):
     """
     :param filename: txt 对应的文件名(要求完整名字)
     将结果写入文件中
@@ -59,7 +59,7 @@ def max_loss_return_xhat(filename):
     with open('xhat_result.csv', 'a+', newline='') as f:
         result_writer = csv.writer(f)
         # 将该文件中 文件名 + 行数 + loss的数值 + xhat 的三个分量 写入 csv 文件中, 如果有两个 loss 最大值, 则分多行写入
-        for i in max_index(losses):
+        for i in min_index(losses):
             result_writer.writerow([filename, 'line:{0}'.format(i+1), 'loss:', losses[i], 'x_hat:']
                                    + COMP_RE.findall(xhats[i]))
 
@@ -71,4 +71,4 @@ if __name__ == '__main__':
         # 对以 'T数字.txt' 为名的文件进行处理
         filename = TXT_RE.match(filename)
         if filename:
-            max_loss_return_xhat(filename.group())
+            min_loss_return_xhat(filename.group())
