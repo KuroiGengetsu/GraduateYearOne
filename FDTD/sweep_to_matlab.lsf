@@ -1,7 +1,6 @@
-# 该脚本将 横坐标-波长 写入 "lambda.txt"
-#      将 扫描得到的纵坐标透射率写入 "T.txt"
-# 分隔符都是制表符 '\t', 你可以直接将数据复制到Excel里面,
-# 也可以使用 MATLAB 或者 python 自己进行处理
+# 该脚本将 横坐标-波长 写入 "lambda.mat"
+#      将 扫描得到的纵坐标透射率写入 "T.mat"
+#      便于使用 MATLAB 进行处理
 
 # 测折射率的监视器的名字
 monitor_name = "T";
@@ -17,8 +16,7 @@ points = getnamed(monitor_name, "frequency points");
 lambda = linspace(min_wl, max_wl, points)*1e6; # 单位微米
 
 
-# 如果lambda文件不存在则写入lambda
-# out = fileexists("lambda.mat");
+# 如果lambda文件存在则删掉, 重新写入lambda
 if(fileexists("lambda.mat")) {
     del("lambda.mat");
     matlabsave("lambda", lambda);
