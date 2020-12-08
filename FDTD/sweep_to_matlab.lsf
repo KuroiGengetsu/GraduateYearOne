@@ -7,7 +7,9 @@
 #  测折射率的监视器的名字
 monitor_name = "T";
 #  最顶层扫描的名字
-sweep_name = "sweep";
+sweep_name = "D400";
+#  保存的mat文件的名字
+save_data_name = "data5";
 
 ## ------------lambda------------
 #  从监听器获取设定的属性, 计算出波长对应的横坐标
@@ -17,10 +19,11 @@ max_wl = getnamed(monitor_name, "maximum wavelength");
 points = getnamed(monitor_name, "frequency points");
 #  计算出 横坐标-波长
 #  linspace就是在最大最小值范围内等距取对应个数的点且包括最值
-lambda = linspace(min_wl, max_wl, points)*1e6; # 单位微米
+#  扫描导出的时候它的波长数据是从大到小顺序
+lambda = linspace(max_wl, min_wl, points)*1e9; # 单位纳米
 
 ## --------------T--------------
-#  获得扫描的透射率结果, 加上绝对值
+#  获得扫描的透射率结果, 加上相反数
 T = abs(getsweepdata(sweep_name, "T"));
 
 ## 保存到 matlab 格式的文件 "data.mat"
@@ -28,5 +31,5 @@ T = abs(getsweepdata(sweep_name, "T"));
 #      `data = load("data");`
 #      `lambda = data.lambda;`
 #      `T = data.T;`
-matlabsave("data", lambda, T);
+matlabsave(save_data_name, lambda, T);
 
