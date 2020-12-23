@@ -1,0 +1,68 @@
+deleteall;
+####################################################
+# Rectangular lattice PC array
+# A periodic array of photonic crystals in a rectangular lattice.
+#
+# Input properties
+# z span: height of crystals
+# nx, ny: the number of columns and rows
+# ax: lattice constant in the x-dir
+# ay: lattice constant in the y-dir
+# radius: radius of the crystals
+# index: index of refraction
+# material
+#
+# Tags: square rectangular lattice pc photonic crystal array
+#
+# Copyright 2012 Lumerical Solutions Inc
+#####################################################
+
+# simplify variable names by removing spaces
+z_span = %z span%;
+
+n_rows = ny-1;
+n_cols = nx-1;
+even_flag = 0;
+
+# -----------------------
+# theta: find in supplement information  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# range from 45~135
+# radian_theta: Arc angle
+# -----------------------
+radian_theta = pi * theta / 180;
+
+for(i=-n_rows/2:n_rows/2) {
+  for(j=-n_cols/2:n_cols/2) {
+    addcircle;    
+    set("radius",radius);
+
+    # ------------ implement angle -------
+    if(even_flag==0) {
+        set("x", (j)*ax);
+    }
+    else {
+        if(theta<90) {
+            set("x", (j)*ax+ax/tan(radian_theta));
+        } else if(theta==90) {
+            set("x", (j)*ax);
+        } else {
+            set("x", (j)*ax-ax/tan(pi-radian_theta));
+        }
+    }
+    # ------------------------------------
+
+    set("y",(i)*ay);   
+    set("z span",z_span); 
+    set("material",material);
+    if(get("material")=="<Object defined dielectric>")
+      { set("index",index); } 
+    }
+
+    # ----change to odd or even number----
+    if(even_flag==0) {
+        even_flag = 1;
+    } else {
+        even_flag = 0;
+    }
+    # ------------------------------------
+}
